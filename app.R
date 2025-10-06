@@ -675,7 +675,7 @@ output$model_params <- DT::renderDataTable({
         options = list(
           dom = "Bfrtip",   # lowercase letters: f=global search, r=processing, t=table, i=info, p=paging
           buttons = c("csv"), 
-          pageLength = 10,
+          pageLength = -1,
           searching = TRUE   # optional, enables global search
         )
       )
