@@ -111,6 +111,8 @@ ui <- fluidPage(
             tags$hr(),
             
             # ---- Analysis Options ____
+            checkboxInput("select_all_analysis", "Select all analysis options", FALSE),
+            
             selectizeInput( #### Add new analysis options here
               "Analysis_Options", 
               "Select analysis options:", 
@@ -567,6 +569,19 @@ server <- function(input, output, session) {
       my_list
     })
 
+    
+# easy button to set anaklysis options to all      
+observeEvent(input$select_all_analysis, {
+        if (input$select_all_analysis) {
+          updateSelectizeInput(session, "Analysis_Options", 
+                               selected = c("AUC", "AUCpredict", "PeakdVI", "PeakdVIfilt",
+                                            "Maxdiff", "maxdiffpredict", "MeandVI", 
+                                            "MeandVIfilt", "MeandVIpredicted", "Model"))
+        } else {
+          updateSelectizeInput(session, "Analysis_Options", selected = NULL)
+        }
+      })
+    
 
 output$model_params <- DT::renderDataTable({
   fitted <- fit_model()
